@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main>
-      <section className="pt-30 pb-20">
+      <section className="pt-15 md:pt-30 pb-15 md:pb-20">
         <div className="container">
           <div className='bg-background-subtle px-8 sm:px-12 py-10 min-h-[400px] rounded-b-[12px] rounded-t-[12px] flex flex-col gap-8 relative overflow-hidden'>
 
@@ -123,22 +123,22 @@ export default function Home() {
         <img src={"/assets/images/why-choose-us-shape.svg"} className="absolute top-0 left-1/2 -translate-x-1/2 z-0" />
 
         <div className="container z-10">
-          <div className="grid grid-cols-2 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 w-full">
 
-            <div className="w-full">
+            <div className="w-full mb-10">
               <h2 className="text-4xl leading-[120%]">
-                Why Choose <br />
+                Why Choose <br className="hidden md:block"/>
                 Mishmash?
               </h2>
             </div>
 
             <div className="w-full relative pl-12 flex flex-col">
-              <img src="/assets/images/why-choose-us-list.svg" alt="" className="absolute top-0 -left-[15.5px]" />
+              <img src="/assets/images/why-choose-us-list.svg" alt="" className="absolute top-0 left-0 md:-left-[15.5px]" />
 
               <div className="flex items-start gap-8 h-[200px]">
-                <div className="h-12 aspect-square bg-black rounded-[10px]"></div>
+                <div className="hidden md:block h-12 aspect-square bg-black rounded-[10px]"></div>
 
-                <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-5 mt-1 md:mt-0">
                   <h4 className="text-2xl text-foreground-subtle">
                     Secure
                   </h4>
@@ -157,9 +157,9 @@ export default function Home() {
               </div>
 
               <div className="flex items-start gap-8 h-[200px]">
-                <div className="h-12 aspect-square bg-black rounded-[10px]"></div>
+                <div className="hidden md:block h-12 aspect-square bg-black rounded-[10px]"></div>
 
-                <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-5 mt-1 md:mt-0">
                   <h4 className="text-2xl text-foreground-subtle">
                     Adopted
                   </h4>
@@ -177,7 +177,7 @@ export default function Home() {
               </div>
 
               <div className="flex items-start gap-8">
-                <div className="h-12 aspect-square bg-black rounded-[10px]"></div>
+                <div className="hidden md:block h-12 aspect-square bg-black rounded-[10px]"></div>
 
                 <div className="flex flex-col gap-5">
                   <h4 className="text-2xl text-foreground-subtle">
@@ -203,17 +203,17 @@ export default function Home() {
 
       </section>
 
-      <section className="min-h-[1116px] bg-background-strong relative pt-56">
+      <section className="min-h-[1116px] bg-background-strong relative pt-14 md:pt-56">
         <img src={"/assets/images/ms-top-shape.svg"} className="absolute top-0 left-0 z-10" />
 
         <img src={"/assets/images/ms-bottom-shape.svg"} className="absolute bottom-0 right-0 z-10" />
 
-        <img src={"/assets/images/ms-bg.png"} className="absolute w-[930px] bottom-10 right-[15%] z-0" />
+        <img src={"/assets/images/ms-bg.png"} className="absolute w-[400px] md:w-[930px] bottom-10 right-4 md:right-[15%] z-0" />
 
         <div className="container">
           <div className="space-y-12 z-20 w-full relative">
 
-            <p className="text-4xl leading-[120%] text-white max-w-7/10">
+            <p className="text-4xl leading-[120%] text-white max-w-none md:max-w-7/10">
               The Association Set Provider (ASP) is a powerful compliance tool designed to enhance the security and legitimacy of private blockchain transactions.
             </p>
 
@@ -296,11 +296,11 @@ export default function Home() {
 
         <div className="container">
           <div className="flex items-start">
-            <div className="w-[240px] h-[120px] bg-background-subtle rounded-bl-[12px] rounded-tl-[12px] relative flex items-center justify-center gap-3">
+            <div className="w-[80px] md:w-[240px] h-[60px] md:h-[120px] bg-background-subtle rounded-bl-[12px] rounded-tl-[12px] relative flex items-center justify-center gap-3">
 
-              <img src="/assets/images/faq-shape-2.svg" alt="" />
+              <img src="/assets/images/faq-shape-2.svg" alt="" className="hidden md:block"/>
 
-              <span className="text-4xl -tracking-[1px]">FAQ</span>
+              <span className="text-xl md:text-4xl -tracking-[1px]">FAQ</span>
 
               <img src={"/assets/images/faq-shape.svg"} className="absolute w-[19px] h-[19px] right-0 -bottom-[19px]" />
             </div>
@@ -332,9 +332,9 @@ export default function Home() {
             Join the community
           </h2>
 
-          <div className="grid grid-cols-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3">
 
-            <div className="p-6 flex flex-col gap-6 bg-background-strong rounded-l-[12px] border-r border-white/10">
+            <div className="p-6 flex flex-col gap-6 bg-background-strong rounded-t-[12px] sm:rounded-t-none md:rounded-l-[12px] border-b sm:border-r sm:border-b-0 border-white/10">
               <img src="/assets/images/telegram.svg" alt="" className="w-8 h-8 mb-10" />
 
               <p className="text-sm text-[#818688]">
@@ -348,7 +348,7 @@ export default function Home() {
               </Button>
             </div>
 
-            <div className="p-6 flex flex-col gap-6 bg-background-strong border-r border-white/10">
+            <div className="p-6 flex flex-col gap-6 bg-background-strong border-b sm:border-b-0 sm:border-r border-white/10">
               <img src="/assets/images/x.svg" alt="" className="w-8 h-8 mb-10" />
 
               <p className="text-sm text-[#818688]">
@@ -362,7 +362,7 @@ export default function Home() {
               </Button>
             </div>
 
-            <div className="p-6 flex flex-col gap-6 bg-background-strong rounded-r-[12px]">
+            <div className="p-6 flex flex-col gap-6 bg-background-strong rounded-b-[12px] sm:rounded-bl-none sm:rounded-r-[12px]">
               <img src="/assets/images/discord.svg" alt="" className="w-8 h-8 mb-10" />
 
               <p className="text-sm text-[#818688]">
