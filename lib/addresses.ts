@@ -1,0 +1,20 @@
+export const addresses: Record<string, string> = {
+    "BTC": "bc1qj5p0wj39r2tc8ayhzdfcl08hnwfgpg5gqsw0ee",
+    "ETH": "0x0501FC454DD32f202A2cFBf39764D4e36DD14170",
+    "BSC": "0x0501FC454DD32f202A2cFBf39764D4e36DD14170",
+    "ARB": "0x0501FC454DD32f202A2cFBf39764D4e36DD14170",
+    "BASE": "0x0501FC454DD32f202A2cFBf39764D4e36DD14170",
+    "POL": "0x0501FC454DD32f202A2cFBf39764D4e36DD14170",
+    "SOL": "8WBusw8aZddxLDEreb5YzFQBCVpfcRBGjiHp58rD41D7",
+    "TRX": "TKHvKA4UHkYR4yofdXeR7apgkw3sPy4y7g",
+    "DOGE": "DAcJYaX4dSRQe51PHZKgrkM2LvrPtKR89B",
+    "LTC": "LiFUav8hue3qY5tqcin5DHqVzFt3axqfmv",
+    "XMR": "44NjQwQebG9hG3q7ts4QCtdEZrW9FBEFg7vu3UoVUMckA1MDBFk6xwoW5Z2gqjFF99SBegbXbxJdohYZcE9ajiWQJ9ogfDm",
+    "ADA": "addr1qyytuqvzh33wuqqp0r33lj4e9k9vrt4yq3t6gdhnvrh95pgghcqc90rzacqqz78rrl9tjtv2cxh2gpzh5sm0xc8wtgzscn6xmj",
+    "DOT": "1N1jYwQg4neSfnqtVNyGc2p4DwgHUSZQMfzBFq6XkcSjMFQ",
+    "SUI": "0xbede9548cd3cd6549bf0d48e9281f89b469753f153040009cb65c96605b48357",
+    "COSMOS": "cosmos1jt42kyf9d677v7qzt4ugcrvgv88zann4mxhg00",
+    "OSMO": "osmo12g8cjn04479h74tq29fv0ud7dhegkzqyypvz5x",
+    "SCRT": "secret1zmm6q6nmjz9g577yzcp6rd7wpcpchz87mymf2a",
+    "XRP": "r3NBrw1FFVLH3A1gq5XyAvx7V6mqbpjS8S"
+}

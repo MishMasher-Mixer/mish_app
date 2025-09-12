@@ -69,7 +69,7 @@
   --badkground-strong: oklch(22.23% 0.006 271.14);
 
   --foreground: oklch(19.10% 0.004 264.47);
-  --foreground-muted: oklch(44.02% 0.005 236.60);
+  --foreground-muted: oklch(54.35% 0.023 285.60);
   --foreground-subtle: oklch(27.70% 0.006 271.21);
 
   --card: oklch(1 0 0);
@@ -78,7 +78,7 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
 
-  --primary: oklch(59.26% 0.232 284.34);
+  --primary: oklch(54.63% 0.257 281.56);
   --primary-foreground: oklch(100.00% 0.000 0);
 
   --secondary: oklch(14.52% 0.002 286.13);
@@ -87,12 +87,12 @@
   --muted: oklch(88.98% 0.009 78.28);
   --muted-foreground: oklch(27.70% 0.006 271.21);
 
-  --accent: oklch(0.968 0.007 247.896);
+  --accent: oklch(69.08% 0.196 37.81);
   --accent-foreground: oklch(0.208 0.042 265.755);
 
   --destructive: oklch(0.577 0.245 27.325);
 
-  --border: oklch(0.929 0.013 255.508);
+  --border: #d1d1d8;
   --input: oklch(0.929 0.013 255.508);
   --ring: oklch(0.704 0.04 256.788);
 
@@ -125,8 +125,8 @@
     max-width: none;
   }
 
-  @media (width >= 1200px) {
-    max-width: 1200px;
+  @media (width >= 720px) {
+    max-width: 760px;
   }
 }
 
@@ -155,12 +155,12 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
+  background: var(--foreground-muted);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
+  background: var(--foreground-muted);
 }
 
 .footer-path {
@@ -174,7 +174,7 @@ html {
 
 
 ⏎ figma {
-  --color-primary: #765BFF;
+  --color-primary: #6444fe;
   --color-secondary: #0A0A0B;
   --color-muted: #DEDAD4;
 
@@ -185,5 +185,7 @@ html {
 
   --color-fg: #131416;
   --color-fg-subtle: #27282B;
-  --color-fg-muted: #505355;
+  --color-fg-muted: #6e6e7d;
+
+  --color-accent: #fc6432;
 }

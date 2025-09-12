@@ -1,0 +1,6 @@
+export const ORDER_CREATED = "order:created"
+export const ORDER_CONFIRMED = "order:confirmed"
+export const ORDER_CONFIRMING = "order:confirming"
+export const ORDER_EXCHANGING = "order:exchanging"
+export const ORDER_SENDING = "order:sending"
+export const ORDER_FAILED = "order:failed"
