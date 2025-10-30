@@ -6,7 +6,7 @@ import { Button } from '../ui/button'
 import { validateAddress } from '@/lib/validateAddress'
 import { toast } from 'sonner'
 import axios from 'axios'
-import { Loader } from 'lucide-react'
+import { ArrowRight, Loader } from 'lucide-react'
 
 type Props = {
     deposit: Deposit
@@ -70,22 +70,27 @@ const WithdrawDialog: React.FC<Props> = ({
                 size="sm"
                 disabled={deposit.withdrawStatus !== "not-available"}
                 onClick={() => setOpen(prev => !prev)}
+                className='rounded-full'
             >
                 Withdraw
             </Button>
 
-            {open && <div className='fixed inset-0 bg-black/10 z-10' onClick={() => setOpen(false)}>
+            {open && <div className='fixed inset-0 bg-black/50 z-10' onClick={() => setOpen(false)}>
             </div>}
 
             {open && (
                 <div className="fixed inset-0 z-20 flex items-center justify-center" onClick={() => setOpen(false)} >
                     <div
-                        className="bg-background-subtle rounded-lg shadow-lg p-6 min-w-xl"
+                        className="bg-background-subtle rounded-lg shadow-lg p-6 min-w-[760px]"
                         onClick={e => e.stopPropagation()}
                     >
-                        <h2 className="text-lg font-medium mb-4">
-                            Withdraw {deposit.amount} {deposit.token}
-                        </h2>
+                        <div className='flex items-center gap-2 mb-5'>
+                            <img src={`/assets/tokens/${deposit.token.toLowerCase()}.svg`} alt="" className='w-5 h-5' />
+
+                            <h2 className="text-xl">
+                                Withdraw {deposit.amount.toLocaleString()} {deposit.token}
+                            </h2>
+                        </div>
 
                         <div className='flex flex-col gap-3'>
                             <label htmlFor="" className="text-foreground-muted font-medium">
@@ -93,9 +98,10 @@ const WithdrawDialog: React.FC<Props> = ({
                             </label>
 
                             <input
-                                className="border rounded-md py-3 px-4 focus:outline-primary outline-1"
+                                className="border border-black/10 bg-background-muted rounded-md py-3 px-4 focus:outline-none text-base"
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
+                                placeholder='Enter your address'
                             />
 
                             {addressError && <p className='capitalize text-destructive text-sm'>
@@ -104,12 +110,13 @@ const WithdrawDialog: React.FC<Props> = ({
                         </div>
 
                         <div className="flex justify-end gap-2 mt-8">
-                            <Button variant="secondary" onClick={() => setOpen(false)}>
-                                Cancel
-                            </Button>
-                            <Button variant="default" onClick={handleWithdraw} disabled={isWithdrawPending || !address}>
+                            <Button variant="default" onClick={handleWithdraw} disabled={isWithdrawPending || !address} className='rounded-full'>
                                 Confirm
-                                {isWithdrawPending && <Loader className='animate-spin' />}
+                                {isWithdrawPending ? <Loader className='animate-spin' /> : <ArrowRight />}
+                            </Button>
+
+                            <Button variant="secondary" onClick={() => setOpen(false)} className='rounded-full'>
+                                Cancel
                             </Button>
                         </div>
                     </div>

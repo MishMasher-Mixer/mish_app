@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { validateAddress } from '@/lib/validateAddress'
 import { Deposit } from '@/types/types'
 import axios from 'axios'
-import { ChevronRight, Loader, LockOpen } from 'lucide-react'
+import { CheckCircle, ChevronRight, CircleX, Clock3, Key, Loader, LockOpen } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React, { useState, useTransition } from 'react'
 import { toast } from 'sonner'
@@ -70,6 +70,24 @@ const AnonWithdrawPage = () => {
         }
     }
 
+    const getStatusIcon = (status: Status): React.ReactNode => {
+        switch (status) {
+            case "pending":
+                return <Clock3 className='text-amber-600 w-4' />
+            case "confirmed":
+                return <CheckCircle className='text-blue-500 w-4' />
+            case "completed":
+                return <CheckCircle className='text-green-500 w-4' />
+            case "failed":
+                return <CircleX className='text-red-500 w-4' />
+            case "expired":
+                return <CircleX className='text-gray-500 w-4' />
+            default:
+                return <div></div>
+        }
+    }
+
+
     const handleWithdraw = () => {
 
         if (!deposit) return
@@ -110,14 +128,14 @@ const AnonWithdrawPage = () => {
     }
 
     return (
-        <section className="py-6">
-            <div className="container flex flex-col gap-6">
+        <section className="py-16">
+            <div className="container flex flex-col">
 
-                <div className="rounded-xl p-6 bg-background-subtle space-y-6">
+                <div className={`rounded-t-xl ${deposit ? "rounded-b-0" : "rounded-b-xl"} p-6 bg-background-subtle space-y-6`}>
 
                     <div className="flex items-center gap-2">
-                        <LockOpen className='text-accent' strokeWidth={4} />
-                        <h2 className="uppercase font-medium text-xl" >
+                        <LockOpen className='text-primary' strokeWidth={3} />
+                        <h2 className="capitalize font-medium text-2xl" >
                             Anonymous Withdraw
                         </h2>
                     </div>
@@ -128,102 +146,113 @@ const AnonWithdrawPage = () => {
                         </label>
 
                         <input
-                            className="border rounded-md py-3 px-4 focus:outline-primary outline-1"
+                            className="border rounded-[8px] h-[44px] px-4 focus:outline-none text-foreground-subtle"
                             value={withdrawalKey}
                             onChange={(e) => setWithdrawalKey(e.target.value)}
+                            placeholder='Withdrawal Key'
                         />
 
-                        {error && <p className='capitalize text-destructive text-sm'>
+                        {/* {error && <p className='capitalize text-destructive text-sm'>
                             {error}
-                        </p>}
+                        </p>} */}
                     </div>}
 
-                    {deposit && <div className="flex flex-col gap-2 mt-10 border border-border rounded-xl p-6 ">
-                        <div className='flex items-center gap-2'>
-                            <span className='font-medium'>
-                                Asset:
-                            </span>
+                    {deposit &&
+                        <div className="flex flex-col mt-4 bg-background rounded-xl p-6 ">
 
-                            <span className='text-foreground-muted font-medium'>
-                                {deposit?.token}
-                            </span>
+                            <div className='flex items-center justify-between pb-3 border-b border-black/10'>
+                                <span className='font-medium'>
+                                    Deposit Asset:
+                                </span>
+
+                                <span className='text-foreground-muted'>
+                                    {deposit?.token}
+                                </span>
+                            </div>
+
+                            <div className='flex items-center justify-between py-3 border-b border-black/10'>
+                                <span className='font-medium'>
+                                    Deposit Amount:
+                                </span>
+
+                                <span className='text-foreground-muted'>
+                                    {deposit?.amount}
+                                </span>
+                            </div>
+
+                            <div className='flex items-center gap-2 justify-between py-3 border-b border-black/10'>
+                                <span className='font-medium'>
+                                    Deposit Type:
+                                </span>
+
+                                <span className='text-foreground-muted'>
+                                    {deposit.type === "fixed" ? "Fixed" : "Any"}
+                                </span>
+                            </div>
+
+                            <div className='flex items-center justify-between py-3 border-b border-black/10'>
+                                <span className='font-medium'>
+                                    Deposit Address:
+                                </span>
+
+                                <span className='text-foreground-muted text-sm'>
+                                    {deposit.depositAddress}
+                                </span>
+                            </div>
+
+                            <div className='flex items-center justify-between pt-3'>
+                                <span className='font-medium'>
+                                    Status:
+                                </span>
+
+                                <div className='flex items-center gap-2'>
+                                    <span className={`capitalize ${getStatusColor(deposit.status)}`}>
+                                        {deposit.status}
+                                    </span>
+
+                                    {getStatusIcon(deposit.status)}
+                                </div>
+                            </div>
                         </div>
+                    }
 
-                        <div className='flex items-center gap-2'>
-                            <span className='font-medium'>
-                                Network:
-                            </span>
+                    {deposit &&
+                        <div className='flex flex-col gap-3'>
+                            <label htmlFor="" className="text-foreground-muted font-medium">
+                                Withdraw Address
+                            </label>
 
-                            <span className='text-foreground-muted font-medium'>
-                                {deposit?.network}
-                            </span>
+                            <input
+                                className="border rounded-md h-[44px] px-4 text-foreground-subtle"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                                placeholder='Withdraw Address'
+                            />
+
+                            {addressError && <p className='capitalize text-destructive text-sm'>
+                                {addressError}
+                            </p>}
                         </div>
+                    }
 
-                        <div className='flex items-center gap-2'>
-                            <span className='font-medium'>
-                                Amount:
-                            </span>
-
-                            <span className='text-foreground-muted font-medium'>
-                                {deposit?.amount}
-                            </span>
-                        </div>
-
-                        <div className='flex items-center gap-2'>
-                            <span className='font-medium'>
-                                Type:
-                            </span>
-
-                            <span className='text-foreground-muted font-medium'>
-                                {deposit?.type === "fixed" ? "Fixed" : "Any"}
-                            </span>
-                        </div>
-
-                        <div className='flex items-center gap-2'>
-                            <span className='font-medium'>
-                                Status:
-                            </span>
-
-                            <span className={`font-medium capitalize ${getStatusColor(deposit?.status || "pending")}`}>
-                                {deposit?.status}
-                            </span>
-                        </div>
-                    </div>}
-
-                    {deposit && <div className='flex flex-col gap-3'>
-                        <label htmlFor="" className="text-foreground-muted font-medium">
-                            Withdraw Address
-                        </label>
-
-                        <input
-                            className="border rounded-md py-3 px-4 focus:outline-primary outline-1"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                        />
-
-                        {addressError && <p className='capitalize text-destructive text-sm'>
-                            {addressError}
-                        </p>}
-                    </div>}
-
-                    {!deposit && <Button className='mt-4' disabled={isPending || !withdrawalKey} onClick={validateKey}>
+                    {!deposit && <Button className='rounded-full' disabled={isPending || !withdrawalKey} onClick={validateKey} >
                         Validate key
-                        {isPending && <Loader className='animate-spin' />}
+                        {isPending ? <Loader className='animate-spin' /> : <Key />}
                     </Button>}
 
-                    {deposit && <Button variant={"secondary"} className='mt-4 rounded-full hover:bg-accent' disabled={isWithdrawPending || !address}
-                    onClick={handleWithdraw}
+                    {deposit && <Button variant={"secondary"} className=' rounded-full' disabled={isWithdrawPending || !address}
+                        onClick={handleWithdraw}
                     >
                         proceed with withdraw
-                        <ChevronRight />
-                        {isWithdrawPending && <Loader className='animate-spin' />}
+                        
+                        {isWithdrawPending ? <Loader className='animate-spin' /> : <ChevronRight />}
                     </Button>}
 
 
                 </div>
 
-                {deposit && <div className="rounded-xl p-6 bg-background-strong">
-                    <p className="text-white leading-[1.6]">
+                {deposit && <div className="rounded-b-xl p-6 bg-background-strong">
+                    <p className="text-white leading-[24px]">
                         <span className="text-accent font-bold">Note:</span> Receiving Amount inlcudes 5% service Fee, but the actual Received Amount may slightly differ from the one displayed due to gas fee at the time of withdraw.
                     </p>
                 </div>}

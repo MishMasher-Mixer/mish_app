@@ -25,8 +25,8 @@ interface DataStore {
 
 export const useStore = create<DataStore>((set, get) => ({
     currentToken: tokens[1],
-    depositType: null,
-    amount: 0.00,
+    depositType: "fixed",
+    amount: tokens[1].fixedOptions[0],
     depositAddress: addresses["TRX"],
     status: "pending" as Status,
     withdrwKey: null,

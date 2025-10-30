@@ -2,7 +2,7 @@
 
 import React, { useState, useTransition } from 'react'
 import { Button } from '../ui/button'
-import { ChevronRight, Copy, Download, Eye, EyeOff, Files, Loader } from 'lucide-react'
+import { ArrowRight, ChevronRight, Copy, Download, Eye, EyeOff, Files, Loader, MoveRight } from 'lucide-react'
 import { toast } from 'sonner'
 import { api } from '@/lib/api'
 import axios from 'axios'
@@ -55,31 +55,46 @@ const GenerateKeys = () => {
     }
 
     return (
-        <div className='flex flex-col gap-6'>
-            <Button variant={"secondary"} className="rounded-full cursor-pointer w-max" onClick={handleGenerate} disabled={isPeding}>
-                Generate new key
-                {!isPeding ? <ChevronRight /> :
-                <Loader className='animate-spin' />}
-            </Button>
+        <div className='flex flex-col bg-background-subtle p-6 gap-6'>
+            {!generated && <div className='flex items-center justify-between'>
+                <div>
+                    <h4 className='text-xl'>
+                        Generate account
+                    </h4>
 
-            {generated && <div className='border rounded-xl flex items-end justify-between p-6'>
-                <div className='flex flex-col gap-2'>
-                    <div className='flex items-center gap-2'>
-                        <span className='font-semibold'>
+                    <p className="text-foreground-muted text-sm">
+                        Users which already withdrawed their deposits.
+                    </p>
+                </div>
+
+                <Button variant={"default"} className="rounded-full cursor-pointer w-max" onClick={handleGenerate} disabled={isPeding}>
+                    Generate new key
+                    {!isPeding ? <ArrowRight /> :
+                        <Loader className='animate-spin' />}
+                </Button>
+            </div>}
+
+            {generated && <div className='bg-background rounded-xl flex items-end justify-between p-5'>
+                <div className='flex flex-col gap-4'>
+                    <div className='flex items-center gap-2 text-foreground-subtle'>
+                        <span className='font-medium'>
                             Public Key:
                         </span>
 
-                        <span className='text-foreground/80'>
+                        <span className=''>
                             {publicKey}
                         </span>
 
                         <button className='text-sm text-foreground/80 cursor-pointer' onClick={() => copy(publicKey)}>
-                            <Files className='w-4.5' color='#6e6e7d' />
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.5 4.5V2.25H15.75V10.5H13.5M2.25 6H12V15.75H2.25V6Z" stroke="#27282B" strokeOpacity="0.6" strokeWidth="1.5" />
+                            </svg>
+
                         </button>
                     </div>
 
-                    <div className='flex items-center gap-2'>
-                        <span className='font-semibold'>
+                    <div className='flex items-center gap-2 text-foreground-subtle'>
+                        <span className='font-medium'>
                             Private Key:
                         </span>
 
@@ -92,7 +107,9 @@ const GenerateKeys = () => {
 
 
                         <button className='text-sm text-foreground/80 cursor-pointer' onClick={() => copy(privateKey)}>
-                            <Files className='w-4.5' color='#6e6e7d' />
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.5 4.5V2.25H15.75V10.5H13.5M2.25 6H12V15.75H2.25V6Z" stroke="#27282B" strokeOpacity="0.6" strokeWidth="1.5" />
+                            </svg>
                         </button>
 
                         <button className='text-sm text-foreground/80 cursor-pointer' onClick={toggleInputType}>
@@ -101,9 +118,12 @@ const GenerateKeys = () => {
                     </div>
                 </div>
 
-                <Button variant={"secondary"} className="bg-muted text-foreground cursor-pointer hover:bg-muted/50" onClick={downloadKeys}>
-                    <Download />
+                <Button variant={"secondary"} className="cursor-pointer hover:bg-muted/50 rounded-full" onClick={downloadKeys}>
                     Download keys
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.00108 3.49738e-07L6.00108 8M6.00108 8L10 4.35903M6.00108 8L2 4.35903M2 11L10 11" stroke="white" strokeWidth="1.5" />
+                    </svg>
+
                 </Button>
             </div>}
         </div>

@@ -8,7 +8,7 @@ import { useSocket } from '@/providers/SocketProvider'
 import { useStore } from '@/store/store'
 import { Deposit, OrderEventPayload } from '@/types/types'
 import axios from 'axios'
-import { Download, Files, HatGlasses, History } from 'lucide-react'
+import { CheckCircle, CircleX, Clock3, Download, Files, HatGlasses, History } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import moment from 'moment'
@@ -47,6 +47,23 @@ const HistoryPage = () => {
                 return "text-gray-500"
             default:
                 return ""
+        }
+    }
+
+    const getStatusIcon = (status: Status): React.ReactNode => {
+        switch (status) {
+            case "pending":
+                return <Clock3 className='text-amber-600 w-4' />
+            case "confirmed":
+                return <CheckCircle className='text-blue-500 w-4' />
+            case "completed":
+                return <CheckCircle className='text-green-500 w-4' />
+            case "failed":
+                return <CircleX className='text-red-500 w-4' />
+            case "expired":
+                return <CircleX className='text-gray-500 w-4' />
+            default:
+                return <div></div>
         }
     }
 
@@ -118,15 +135,26 @@ const HistoryPage = () => {
     // }
 
     return (
-        <section className="py-6 relative">
+        <section className="py-16 relative">
             <div className="container flex flex-col gap-6">
 
                 <div className="rounded-xl p-6 bg-background-subtle space-y-6">
 
                     <div className="flex items-center gap-2">
 
-                        <History className='text-accent' strokeWidth={3} />
-                        <h2 className="uppercase font-medium text-xl">
+                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clipPath="url(#clip0_286_519)">
+                                <circle cx="13" cy="13" r="13" fill="#765BFF" />
+                                <path d="M13.0003 6L13.0003 16.5405M13.0003 16.5405L18.3322 11.7433M13.0003 16.5405L7.6655 11.7433M19 19.541L7 19.541" stroke="white" strokeWidth="1.5" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_286_519">
+                                    <rect width="26" height="26" fill="white" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+
+                        <h2 className="capitalize font-medium text-2xl">
                             Deposit History
                         </h2>
                     </div>
@@ -138,28 +166,28 @@ const HistoryPage = () => {
                     {history.length > 0 && <Table className='relative'>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>
+                                <TableHead className='text-foreground-muted'>
                                     Asset
                                 </TableHead>
 
-                                <TableHead>
+                                <TableHead className='text-foreground-muted'>
                                     Network
                                 </TableHead>
 
-                                <TableHead>
+                                <TableHead className='text-foreground-muted'>
                                     Amount
                                 </TableHead>
 
-                                <TableHead>
-                                    Status
-                                </TableHead>
-
-                                <TableHead>
+                                <TableHead className='text-foreground-muted'>
                                     Time
                                 </TableHead>
 
+                                <TableHead className='text-foreground-muted text-end'>
+                                    Status
+                                </TableHead>
+
                                 <TableHead className='text-end'>
-                                    Actions
+
                                 </TableHead>
                             </TableRow>
                         </TableHeader>
@@ -168,7 +196,10 @@ const HistoryPage = () => {
                             {history.map(row => (
                                 <TableRow key={row._id}>
                                     <TableCell>
-                                        {row.token}
+                                        <div className='flex items-center gap-2'>
+                                            <img src={`/assets/tokens/${row.token.toLowerCase()}.svg`} alt="" className='w-4 h-4' />
+                                            {row.token}
+                                        </div>
                                     </TableCell>
 
                                     <TableCell>
@@ -176,20 +207,23 @@ const HistoryPage = () => {
                                     </TableCell>
 
                                     <TableCell>
-                                        {row.amount}
-                                    </TableCell>
-
-                                    <TableCell className={`${getStatusColor(row.status)} text-base`}>
-                                        {row.status}
+                                        {row.amount.toLocaleString()}
                                     </TableCell>
 
                                     <TableCell>
-                                        {moment(row.timestamp).format("DD/MM/YYYY HH:mm")}
+                                        {moment(row.timestamp).format("DD/MM/YY HH:mm")}
+                                    </TableCell>
+
+                                    <TableCell className={`${getStatusColor(row.status)} text-base`}>
+                                        <div className='flex items-center gap-2 capitalize justify-end'>
+                                            {row.status}
+                                            {getStatusIcon(row.status)}
+                                        </div>
                                     </TableCell>
 
                                     <TableCell className='flex justify-end'>
 
-                                        <WithdrawDialog deposit={row} refetch={fetchHistory}/>
+                                        <WithdrawDialog deposit={row} refetch={fetchHistory} />
 
                                     </TableCell>
                                 </TableRow>

@@ -5,7 +5,7 @@ import TokenSelector from './TokenSelector'
 import { useStore } from '@/store/store'
 import { Button } from '../ui/button'
 import { Dropdown } from '../ui/dropdown'
-import { Loader } from 'lucide-react'
+import { ArrowRight, Loader } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/auth/AuthContext'
 import axios from 'axios'
@@ -26,14 +26,6 @@ const CreateDeposit = () => {
     } = useStore()
 
     const [display, setDisplay] = useState("");
-
-    const [dropdownOpen, setDropDownOpen] = useState<boolean>(false)
-
-    const toggle = () => setDropDownOpen(prev => !prev)
-
-    useEffect(() => {
-        setDropDownOpen(false)
-    }, [depositType])
 
     const [isPending, startTransition] = useTransition()
     const router = useRouter()
@@ -77,11 +69,11 @@ const CreateDeposit = () => {
     }
 
     return (
-        <div className='flex flex-col gap-10'>
+        <div className='flex flex-col gap-10 bg-background-subtle p-6'>
             <div className="grid grid-cols-2 gap-6">
 
                 <div className="flex flex-col gap-3">
-                    <label htmlFor="" className="text-foreground-muted font-medium">
+                    <label htmlFor="" className="text-foreground-muted font-medium text-sm">
                         Deposit Asset
                     </label>
 
@@ -92,18 +84,18 @@ const CreateDeposit = () => {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                    <label htmlFor="" className="text-foreground-muted font-medium">
+                    <label htmlFor="" className="text-foreground-muted font-medium text-sm">
                         Deposit Type
                     </label>
 
-                    <div className='grid grid-cols-2 gap-3'>
-                        <button className={`w-full py-2 px-4 border uppercase h-10.5 hover:bg-accent cursor-pointer hover:rounded-full ${depositType === "fixed" ? "bg-accent rounded-full" : "bg-transparent rounded-md"}`} onClick={() => {
+                    <div className='grid grid-cols-2 gap-1 bg-muted p-1 h-[44px] rounded-[8px]'>
+                        <button className={`w-full py-2 px-4 uppercase h-full hover:bg-background cursor-pointer rounded-[8px] ${depositType === "fixed" ? "bg-background" : "bg-transparent"}`} onClick={() => {
                             setDepositType("fixed")
                         }}>
                             Fixed
                         </button>
 
-                        <button className={`w-full py-2 px-4 border uppercase h-10.5 hover:bg-accent cursor-pointer hover:rounded-full ${depositType === "any" ? "bg-accent rounded-full" : "bg-transparent rounded-md"}`} onClick={() => {
+                        <button className={`w-full py-2 px-4 uppercase h-full hover:bg-background cursor-pointer rounded-[8px] ${depositType === "any" ? "bg-background" : "bg-transparent"}`} onClick={() => {
                             setDepositType("any")
                         }}>
                             any
@@ -114,12 +106,12 @@ const CreateDeposit = () => {
 
             {depositType && <div className='grid grid-cols-2 gap-6 items-end pb-6'>
                 <div className="flex flex-col gap-3 relative">
-                    <label htmlFor="" className="text-foreground-muted font-medium">
+                    <label htmlFor="" className="text-foreground-muted font-medium text-sm">
                         Select Amount
                     </label>
 
                     {depositType === "any" && <input
-                        className="border rounded-md py-3 px-4 focus:outline-none"
+                        className="border border-black/15 rounded-[8px] h-[44px] px-4 focus:outline-none text-foreground-muted"
                         placeholder="0.00"
                         type="number"
                         value={display}
@@ -130,37 +122,48 @@ const CreateDeposit = () => {
                         }}
                     />}
 
-                    {depositType === "any" && (amount < currentToken.minAmount) && <p className='text-destructive absolute -bottom-6 left-0'>
-                        Minimum Amount: {currentToken.minAmount} {currentToken.symbol}
-                    </p>}
-
-                    {depositType === "fixed" && <button
-                        className="border rounded-md py-3 px-4 focus:outline-none cursor-pointer text-start"
-                        onClick={toggle}
-                    >
-                        {amount}
-                    </button>}
-
-                    {dropdownOpen && depositType === "fixed" && <div className='w-full border px-1 py-1 rounded-md absolute top-[100%] bg-background-subtle flex flex-col'>
-                        {currentToken.fixedOptions.map((opt, i) => (
-                            <button key={i} className='px-3 py-2 text-start hover:bg-[#dedad4] rounded-md' onClick={() => {
-                                setAmount(opt)
-                                setDropDownOpen(false)
-                            }}>
-                                {opt}
-                            </button>
-                        ))}
-                    </div>}
+                    {depositType === "fixed" &&
+                        <div className='flex items-center gap-1.5'>
+                            {currentToken.fixedOptions.map((opt, i) => (
+                                <button key={i} className={`h-[44px] px-[14px] flex items-center rounded-full cursor-pointer ${amount === opt ? "bg-background-strong text-white" : "bg-muted text-muted-foreground"}`} onClick={() => {
+                                    setAmount(opt)
+                                }}>
+                                    {opt}
+                                </button>
+                            ))}
+                        </div>
+                    }
                 </div>
 
-                <div className='flex justify-end'>
-                    <Button className='py-3 px-6' disabled={
+                <div className={`flex items-center ${depositType == "any" ? "justify-between" : "justify-end"}`}>
+
+                    {depositType === "any" && (amount < currentToken.minAmount) &&
+                        <div className='flex items-center gap-2'>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clipPath="url(#clip0_286_701)">
+                                    <circle cx="12" cy="12" r="12" fill="#DEDAD4" />
+                                    <path d="M12 6V14M12 16V18" stroke="#505355" strokeWidth="2" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_286_701">
+                                        <rect width="24" height="24" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+
+                            <p className='text-sm text-foreground-muted font-medium leading-[140%]'>
+                                Min Amount: < br /> {currentToken.minAmount} {currentToken.symbol}
+                            </p>
+                        </div>
+                    }
+
+                    <Button className='py-3 px-6 rounded-full' disabled={
                         isPending || (depositType === "any" && amount < currentToken.minAmount)
                     }
                         onClick={handleDeposit}
                     >
                         Start deposit
-                        {isPending && <Loader className='animate-spin' />}
+                        {isPending ? <Loader className='animate-spin' /> : <ArrowRight />}
                     </Button>
                 </div>
             </div>}

@@ -77,17 +77,16 @@ const RecentDataTable = ({
     }, [firstDelay, secondDelay]);
 
     return (
-        <table className="w-full  border-separate border-spacing-y-3 table-fixed">
+        <table className="w-full  border-separate border-spacing-y-2 table-fixed">
             <tbody>
                 {rows.map((row) => (
                     <tr key={row.value} className="hover:bg-gray-100">
-                        <td className="px-2 py-1 border-b border-gray-300 w-[55px] truncate">
-                            {row.value}
+                        <td className="pl-6 py-1 border-b border-black/10  flex items-center gap-2 text-sm whitespace-nowrap">
+                            <img src={`/assets/tokens/${row.token.toLowerCase()}.svg`} alt="" className='h-4 w-4' />
+                            {row.value} {row.token}
                         </td>
-                        <td className="px-2 py-1 border-b border-gray-300 truncate">
-                            {row.token}
-                        </td>
-                        <td className="px-2 py-1 border-b border-gray-300 whitespace-nowrap">
+                        
+                        <td className="pr-6 py-1 border-b border-gray-300 whitespace-nowrap text-end">
                             {row.time}
                         </td>
                     </tr>
