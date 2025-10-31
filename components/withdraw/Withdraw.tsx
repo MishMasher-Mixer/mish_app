@@ -81,7 +81,7 @@ const WithdrawDialog: React.FC<Props> = ({
             {open && (
                 <div className="fixed inset-0 z-20 flex items-center justify-center" onClick={() => setOpen(false)} >
                     <div
-                        className="bg-background-subtle rounded-lg shadow-lg p-6 min-w-[760px]"
+                        className="bg-background-subtle rounded-lg shadow-lg p-6 w-full md:min-w-[760px] mx-2"
                         onClick={e => e.stopPropagation()}
                     >
                         <div className='flex items-center gap-2 mb-5'>

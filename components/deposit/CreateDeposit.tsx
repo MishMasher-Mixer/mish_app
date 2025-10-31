@@ -70,7 +70,7 @@ const CreateDeposit = () => {
 
     return (
         <div className='flex flex-col gap-10 bg-background-subtle p-6'>
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                 <div className="flex flex-col gap-3">
                     <label htmlFor="" className="text-foreground-muted font-medium text-sm">
@@ -104,7 +104,7 @@ const CreateDeposit = () => {
                 </div>
             </div>
 
-            {depositType && <div className='grid grid-cols-2 gap-6 items-end pb-6'>
+            {depositType && <div className='grid grid-cols-1 md:grid-cols-2 gap-6 items-end pb-6'>
                 <div className="flex flex-col gap-3 relative">
                     <label htmlFor="" className="text-foreground-muted font-medium text-sm">
                         Select Amount
@@ -135,7 +135,7 @@ const CreateDeposit = () => {
                     }
                 </div>
 
-                <div className={`flex items-center ${depositType == "any" ? "justify-between" : "justify-end"}`}>
+                <div className={`flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-0 ${depositType == "any" ? "justify-between" : "justify-end"}`}>
 
                     {depositType === "any" && (amount < currentToken.minAmount) &&
                         <div className='flex items-center gap-2'>
@@ -152,12 +152,12 @@ const CreateDeposit = () => {
                             </svg>
 
                             <p className='text-sm text-foreground-muted font-medium leading-[140%]'>
-                                Min Amount: < br /> {currentToken.minAmount} {currentToken.symbol}
+                                Min Amount: < br className='hidden md:block'/> {currentToken.minAmount} {currentToken.symbol}
                             </p>
                         </div>
                     }
 
-                    <Button className='py-3 px-6 rounded-full' disabled={
+                    <Button className='py-3 px-6 rounded-full w-full md:w-max' disabled={
                         isPending || (depositType === "any" && amount < currentToken.minAmount)
                     }
                         onClick={handleDeposit}

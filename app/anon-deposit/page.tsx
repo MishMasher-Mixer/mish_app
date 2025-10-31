@@ -143,7 +143,7 @@ const AnonDeposit = () => {
                         </h2>
                     </div>
 
-                    <div className="flex flex-col mt-4 bg-background rounded-xl p-6 ">
+                    <div className="flex flex-col mt-4 bg-background rounded-xl p-6 text-sm md:text-base">
 
                         <div className='flex items-center justify-between pb-3 border-b border-black/10'>
                             <span className='font-medium'>
@@ -181,8 +181,12 @@ const AnonDeposit = () => {
                             </span>
 
                             <div className='flex items-center gap-2'>
-                                <span className='text-foreground-muted text-sm'>
+                                <span className='text-foreground-muted text-sm hidden md:block'>
                                     {depositAddress}
+                                </span>
+
+                                <span className='text-foreground-muted text-sm md:hidden'>
+                                    {`${depositAddress.slice(0,4)}...${depositAddress.slice(-4)}`}
                                 </span>
 
                                 <button className='text-sm text-foreground/80 cursor-pointer' onClick={() => copy(depositAddress)}>

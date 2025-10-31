@@ -56,7 +56,7 @@ const GenerateKeys = () => {
 
     return (
         <div className='flex flex-col bg-background-subtle p-6 gap-6'>
-            {!generated && <div className='flex items-center justify-between'>
+            {!generated && <div className='flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-0 justify-between'>
                 <div>
                     <h4 className='text-xl'>
                         Generate account
@@ -74,8 +74,8 @@ const GenerateKeys = () => {
                 </Button>
             </div>}
 
-            {generated && <div className='bg-background rounded-xl flex items-end justify-between p-5'>
-                <div className='flex flex-col gap-4'>
+            {generated && <div className='bg-background rounded-xl flex flex-col md:flex-row items-start md:items-end justify-between p-5 gap-6 md:gap-0'>
+                <div className='flex flex-col gap-4 text-sm md:text-base'>
                     <div className='flex items-center gap-2 text-foreground-subtle'>
                         <span className='font-medium'>
                             Public Key:
@@ -99,10 +99,17 @@ const GenerateKeys = () => {
                         </span>
 
                         <span
-                            className=" whitespace-pre px-1"
+                            className=" whitespace-pre px-1 hidden md:block"
                             aria-hidden="true"
                         >
                             {inputType === "password" ? "•".repeat(privateKey.length) : privateKey}
+                        </span>
+
+                        <span
+                            className=" whitespace-pre px-1 md:hidden"
+                            aria-hidden="true"
+                        >
+                            {inputType === "password" ? "•".repeat(privateKey.slice(0, 10).length) : `${privateKey.slice(0,5)}...${privateKey.slice(-5)}`}
                         </span>
 
 

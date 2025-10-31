@@ -158,7 +158,7 @@ const AnonWithdrawPage = () => {
                     </div>}
 
                     {deposit &&
-                        <div className="flex flex-col mt-4 bg-background rounded-xl p-6 ">
+                        <div className="flex flex-col mt-4 bg-background rounded-xl p-6 text-sm md:text-base">
 
                             <div className='flex items-center justify-between pb-3 border-b border-black/10'>
                                 <span className='font-medium'>
@@ -195,8 +195,12 @@ const AnonWithdrawPage = () => {
                                     Deposit Address:
                                 </span>
 
-                                <span className='text-foreground-muted text-sm'>
+                                <span className='text-foreground-muted text-sm hidden md:block'>
                                     {deposit.depositAddress}
+                                </span>
+
+                                <span className='text-foreground-muted text-sm md:hidden'>
+                                    {`${deposit.depositAddress.slice(0,4)}...${deposit.depositAddress.slice(-4)}`}
                                 </span>
                             </div>
 

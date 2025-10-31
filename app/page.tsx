@@ -61,8 +61,8 @@ export default function Home() {
           </div>
 
           {!isAuthenticated &&
-            <div className="grid grid-cols-2">
-              <button className={`border border-muted h-[72px] flex items-center justify-center gap-2 font-medium font-mono uppercase text-sm hover:bg-muted/80 ${!mode ? "bg-muted" : mode === "with_account" ? "bg-background-subtle" : "bg-muted"} ${!mode ? "border-r-black/10" : "border-r-muted"}`}
+            <div className="grid grid-cols-1 md:grid-cols-2">
+              <button className={`border border-muted h-[72px] flex items-center justify-center gap-2 font-medium font-mono uppercase text-sm hover:bg-muted/80 ${!mode ? "bg-muted" : mode === "with_account" ? "bg-background-subtle" : "bg-muted"} ${!mode ? "border-b-black/10 md:border-r-black/10" : "border-r-muted"}`}
                 onClick={() => setMode(mode === "with_account" ? null : "with_account")}
               >
                 {mode === "with_account" && <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -96,7 +96,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-4">
           <div className='w-full bg-background-subtle rounded-md space-y-4'>
 
             <div className="p-6 border-b border-black/10 min-h-[115px]">
